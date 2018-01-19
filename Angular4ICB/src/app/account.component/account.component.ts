@@ -2,22 +2,26 @@ import { Component, OnInit, Output, EventEmitter, ViewChild } from "@angular/cor
 import { AccountService } from '../services/accountService';
 import { DataService } from '../services/dataService';
 import { AccountCreateModal } from './account.modal.component';
+import { fadeInAnimation } from '../_animations/fade.animation';
+import { slideInOutAnimation } from '../_animations/slide.animation';
+
 @Component({
   selector: 'account-list',
   moduleId: module.id,
   templateUrl: 'account.component.html',
   providers: [AccountService],
-
+  animations: [slideInOutAnimation],
+  //host: { '[@slideInOutAnimation]': '' }
 })
 export class AccountComponent implements OnInit {
   public accounts: any[];
   public name = 'Khanhnd';
-  public ID:any=6;
+  public ID: any = 6;
   @ViewChild(AccountCreateModal) popup2: AccountCreateModal;
   constructor(private accountService: AccountService, private ds: DataService) {
 
   }
- public type:string="default";
+  public type: string = "default";
   btnCustomerCreate_OnClick() {
 
     alert(1);

@@ -3,11 +3,16 @@ import { CustomerService } from '../services/customerService';
 import { Title } from '@angular/platform-browser';
 import { DataService } from '../services/dataService';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { fadeInAnimation } from '../_animations/fade.animation';
+import { slideInOutAnimation } from '../_animations/slide.animation';
+
 @Component({
     selector: 'customer-list',
     moduleId: module.id,
     templateUrl: 'customer.component.html',
-    providers: [CustomerService]
+    providers: [CustomerService],
+    animations: [fadeInAnimation],
+    host: { '[@fadeInAnimation]': '' }
 })
 export class CustomerComponent implements OnInit {
     public customers: any[];
@@ -16,7 +21,7 @@ export class CustomerComponent implements OnInit {
     constructor(private customerService: CustomerService, private ds: DataService, private dialog: MatDialog) { }
 
 
-    btnCreate_Click():void {
+    btnCreate_Click(): void {
         let dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
             width: '550px',
             data: { name: this.name, animal: this.animal }

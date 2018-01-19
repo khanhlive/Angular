@@ -1,108 +1,52 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
+import { ToastModule } from 'ng2-toastr/ng2-toastr';
+import { ToastOptions } from 'ng2-toastr';
 import { HttpModule } from '@angular/http';
+import { CdkTableModule } from '@angular/cdk/table';
+import { MaterialDesignModule } from './app.material.module';
+
+//router
+// import { appRoutes } from './app.routes/app.routes';
+import { AppRouting } from './app.routes/app.routes';
+
+//component
+import { AccountCreateModal } from './account.component/account.modal.component';
 import { AppComponent } from './app.component/app.component';
-import { appRoutes } from './app.routes/app.routes';
 import { AccountComponent } from './account.component/account.component';
 import { CustomerComponent, DialogOverviewExampleDialog } from './customer.component/customer.component';
-import { DataService } from './services/dataService';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AccountCreateModal } from './account.component/account.modal.component';
-import { CdkTableModule } from '@angular/cdk/table';
-import {
-  MatAutocompleteModule,
-  MatButtonModule,
-  MatButtonToggleModule,
-  MatCardModule,
-  MatCheckboxModule,
-  MatChipsModule,
-  MatDatepickerModule,
-  MatDialogModule,
-  MatExpansionModule,
-  MatGridListModule,
-  MatIconModule,
-  MatInputModule,
-  MatListModule,
-  MatMenuModule,
-  MatNativeDateModule,
-  MatPaginatorModule,
-  MatProgressBarModule,
-  MatProgressSpinnerModule,
-  MatRadioModule,
-  MatRippleModule,
-  MatSelectModule,
-  MatSidenavModule,
-  MatSliderModule,
-  MatSlideToggleModule,
-  MatSnackBarModule,
-  MatSortModule,
-  MatTableModule,
-  MatTabsModule,
-  MatToolbarModule,
-  MatTooltipModule,
-  MatStepperModule,
-} from '@angular/material';
-import { ToastMessagesComponent } from './toasts/toast-message.component';
-import { ToastService } from './services/toast.service';
-import { AngularFireModule } from 'angularfire2';
+import { AppHeaderComponent } from './header/app-header.component';
+import { AsideLeftComponent } from './aside-left/aside-left.component';
+import { AsideRightComponent } from './aside-right/aside-right.component';
+import { AppFooterComponent } from './app-footer/app-footer.component';
+import { LoginComponent } from './login.component/login.component';
 
-// New imports to update based on AngularFire2 version 4
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-export const firebaseConfig = {
-  apiKey: "",
-  authDomain: "",
-  databaseURL: "",
-  storageBucket: "",
-  messagingSenderId: ""
-};
-import { NotificationsModule, NotificationsService } from 'angular4-notify';
+//services
+import { DataService } from './services/dataService';
+import { SnackBarService } from './toasts/toast-notification.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { LoginService } from './services/login.service';
+import { AuthGuard } from './guard/auth.guard';
+export class CustomOption extends ToastOptions {
+  animate = 'flyRight'; // you can override any options available
+  newestOnTop = false;
+  showCloseButton = true;
+  positionClass = 'toast-bottom-right';
+}
 @NgModule({
   imports: [
-    
-    BrowserModule,
+    ToastModule.forRoot(),
+    CommonModule,
     HttpModule,
-    appRoutes,
-    BrowserAnimationsModule,
-    MatAutocompleteModule,
+    AppRouting,
     CdkTableModule,
-    // AngularFireModule.initializeApp(firebaseConfig),
-    // AngularFireDatabaseModule,
-    // AngularFireAuthModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatChipsModule,
-    MatDatepickerModule,
-    MatDialogModule,
-    MatExpansionModule,
-    MatGridListModule,
-    MatIconModule,
-    MatInputModule,
-    MatListModule,
-    MatMenuModule,
-    MatNativeDateModule,
-    MatPaginatorModule,
-    MatProgressBarModule,
-    MatProgressSpinnerModule,
-    MatRadioModule,
-    MatRippleModule,
-    MatSelectModule,
-    MatSidenavModule,
-    MatSliderModule,
-    MatSlideToggleModule,
-    MatSnackBarModule,
-    MatSortModule,
-    MatTableModule,
-    MatTabsModule,
-    MatToolbarModule,
-    MatTooltipModule,
-    MatStepperModule],
-  declarations: [AppComponent, AccountComponent, CustomerComponent, AccountCreateModal, DialogOverviewExampleDialog],
+    MaterialDesignModule
+  ],
+  declarations: [AppComponent, AccountComponent,
+    CustomerComponent, AccountCreateModal, DialogOverviewExampleDialog, AppHeaderComponent, AsideLeftComponent, LoginComponent, AsideRightComponent, AppFooterComponent, DashboardComponent],
   entryComponents: [CustomerComponent, DialogOverviewExampleDialog],
   bootstrap: [AppComponent,],
-  providers: [DataService,]
+  providers: [DataService,LoginService,AuthGuard, SnackBarService, { provide: ToastOptions, useClass: CustomOption }]
 })
 export class AppModule { }
 
