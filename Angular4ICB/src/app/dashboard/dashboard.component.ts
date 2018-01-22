@@ -9,7 +9,7 @@ import { LoginService } from '../services/login.service';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private loginService:LoginService) { }
+  constructor(private loginService: LoginService) { }
 
   ngOnInit() {
   }

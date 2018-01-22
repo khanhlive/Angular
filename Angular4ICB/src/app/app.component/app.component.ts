@@ -8,6 +8,7 @@ import { Menus, MenuItem } from '../models/menuItem';
 import { LoginService } from '../services/login.service';
 declare var $:any;
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'my-app',
   moduleId: module.id,
   templateUrl: 'app.component.html',
@@ -18,7 +19,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   headerName: any;
   subscription: Subscription;
   menus: MenuItem[] = Menus;
-  constructor(private _title: Title, private ds: DataService, private notify: SnackBarService, private view: ViewContainerRef,private loginService:LoginService) {
+  // tslint:disable-next-line:max-line-length
+  constructor(private _title: Title, private ds: DataService, private notify: SnackBarService, private view: ViewContainerRef, private loginService: LoginService) {
     this.subscription = this.ds.getHeaderName().subscribe(x => this.headerName = x);
 
   }

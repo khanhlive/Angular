@@ -1,3 +1,5 @@
-export class ServiceBase{
-    protected apiUrlBase='http://localhost:3003/api';
+export class ServiceBase {
+  private _host: string = "http://localhost:3003";
+  protected apiUrlBase = this._host + "/api"; //"http://localhost:3003/api";
+  protected token:string=this._host+"/token";
 }
