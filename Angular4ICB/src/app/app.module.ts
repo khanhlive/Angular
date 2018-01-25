@@ -23,6 +23,7 @@ import { AsideLeftComponent } from "./aside-left/aside-left.component";
 import { AsideRightComponent } from "./aside-right/aside-right.component";
 import { AppFooterComponent } from "./app-footer/app-footer.component";
 import { LoginComponent } from "./login.component/login.component";
+import  { ModalModule} from 'ngx-bootstrap'
 
 //services
 import { DataService } from "./services/dataService";
@@ -41,6 +42,7 @@ export class CustomOption extends ToastOptions {
 @NgModule({
   imports: [
     ToastModule.forRoot(),
+    ModalModule.forRoot(),
     CommonModule,
     HttpClientModule,
     AppRouting,
