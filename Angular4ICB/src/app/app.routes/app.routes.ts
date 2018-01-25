@@ -9,6 +9,7 @@ import { AppComponent } from "../app.component/app.component";
 import { DashboardComponent } from "../dashboard/dashboard.component";
 import { AuthGuard } from "../guard/auth.guard";
 import { ApplicationRole } from "../guard/ApplicationRole";
+import { NewsComponent } from "../news/news.component";
 
 @NgModule({
   imports: [
@@ -19,12 +20,33 @@ import { ApplicationRole } from "../guard/ApplicationRole";
         children: [
           { path: "", redirectTo: "dashboard", pathMatch: "full" },
           { path: "customers", component: CustomerComponent },
-          { path: "accounts", component: AccountComponent, canActivate:[AuthGuard] },
+          {
+            path: "accounts",
+            component: AccountComponent,
+            canActivate: [AuthGuard],
+            data: {
+              id: 1
+            }
+          },
           {
             path: "dashboard",
             component: DashboardComponent,
             canActivate: [AuthGuard],
             data: {
+              id: 0,
+              alowRoles: [
+                ApplicationRole.SuperAdmin,
+                ApplicationRole.Admin,
+                ApplicationRole.Manager
+              ]
+            }
+          },
+          {
+            path: "news",
+            component: NewsComponent,
+            canActivate: [AuthGuard],
+            data: {
+              id: 3,
               alowRoles: [
                 ApplicationRole.SuperAdmin,
                 ApplicationRole.Admin,

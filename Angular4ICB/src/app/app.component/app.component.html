@@ -4,10 +4,11 @@
     <!-- Left side column. contains the logo and sidebar -->
     <aside class="main-sidebar">
         <!-- sidebar: style can be found in sidebar.less -->
+        
         <section class="sidebar">
             <ul class="sidebar-menu">
                 <li class="treeview" *ngFor="let item of menus" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                    <a routerLink="{{item.routerLink}}" (click)="setTitle(item.name)">
+                    <a *ngIf="ModuleList.indexOf(item.id)!=-1" routerLink="{{item.routerLink}}" (click)="setTitle(item.name)">
                         <i class="{{item.icon}}"></i>
                         <span>{{item.name}}</span>
                         <span *ngIf="item.hasChild" class="pull-right-container">

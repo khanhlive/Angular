@@ -5,6 +5,7 @@ import { ToastOptions } from "ng2-toastr";
 import { HttpClientModule } from "@angular/common/http";
 import { CdkTableModule } from "@angular/cdk/table";
 import { MaterialDesignModule } from "./app.material.module";
+import { ChartsModule} from 'ng2-charts';
 
 //router
 // import { appRoutes } from './app.routes/app.routes';
@@ -33,6 +34,8 @@ import { LoginService } from "./services/login.service";
 import { AuthGuard } from "./guard/auth.guard";
 import { InterceptorModule } from "./services/httpRequestInterceptor.module";
 import { HttpModule } from "@angular/http";
+import { NewsComponent } from './news/news.component';
+import { ConfigService } from './services/config.service';
 export class CustomOption extends ToastOptions {
   animate = "flyRight"; // you can override any options available
   newestOnTop = false;
@@ -49,7 +52,8 @@ export class CustomOption extends ToastOptions {
     CdkTableModule,
     MaterialDesignModule,
     InterceptorModule,
-    HttpModule
+    HttpModule,
+    ChartsModule
   ],
   declarations: [
     AppComponent,
@@ -62,7 +66,8 @@ export class CustomOption extends ToastOptions {
     LoginComponent,
     AsideRightComponent,
     AppFooterComponent,
-    DashboardComponent
+    DashboardComponent,
+    NewsComponent
   ],
   entryComponents: [CustomerComponent, DialogOverviewExampleDialog],
   bootstrap: [AppComponent],
@@ -71,6 +76,7 @@ export class CustomOption extends ToastOptions {
     LoginService,
     AuthGuard,
     SnackBarService,
+    ConfigService,
     { provide: ToastOptions, useClass: CustomOption }
   ]
 })

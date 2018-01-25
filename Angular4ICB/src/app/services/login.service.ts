@@ -11,7 +11,10 @@ export class LoginService extends ServiceBase {
   private static username: string;
   private static password: string;
   private tokenStringName: string = "Angular_token";
-  constructor(private http: Http, private router: Router) {
+  constructor(
+    private http: Http,
+    private router: Router
+  ) {
     super();
   }
   getUserLoggedIn(): boolean {
@@ -86,6 +89,7 @@ export class LoginService extends ServiceBase {
           let _date = new Date(Date.now() + token.expires_in * 1000);
           token.dateExpried = _date;
           localStorage.setItem(this.tokenStringName, JSON.stringify(token));
+          
           return true;
         } else {
           alert("Sai tai khoan, mat khau");

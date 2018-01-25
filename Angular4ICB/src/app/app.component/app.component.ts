@@ -15,38 +15,47 @@ import {
 import { Menus, MenuItem } from "../models/menuItem";
 import { LoginService } from "../services/login.service";
 import { Ng4LoadingSpinnerService } from "ng4-loading-spinner";
-import { Router, RouteConfigLoadStart, RouteConfigLoadEnd } from '@angular/router';
+import {
+  Router,
+  RouteConfigLoadStart,
+  RouteConfigLoadEnd
+} from "@angular/router";
+import { ConfigService } from "../services/config.service";
+import { forEach } from "@angular/router/src/utils/collection";
 
 declare var $: any;
 @Component({
   selector: "my-app",
   moduleId: module.id,
   templateUrl: "app.component.html",
-  providers: [SnackBarService, LoginService]
+  providers: [SnackBarService, LoginService, ConfigService]
 })
 export class AppComponent implements OnInit, AfterViewInit {
   isLogin: boolean = true;
   headerName: any;
   subscription: Subscription;
   menus: MenuItem[] = Menus;
+  ModuleList: any[]=[0];
+  demo:boolean=false;
   constructor(
     private _title: Title,
     private ds: DataService,
     private notify: SnackBarService,
     private view: ViewContainerRef,
     private loginService: LoginService,
-    private loading:Ng4LoadingSpinnerService,
-    private router: Router
+    private loading: Ng4LoadingSpinnerService,
+    private router: Router,
+    private config: ConfigService
   ) {
     this.subscription = this.ds
       .getHeaderName()
       .subscribe(x => (this.headerName = x));
-      this.router.events.subscribe(event => {
-        if (event instanceof RouteConfigLoadStart) {
-            this.loading.show();
-        } else if (event instanceof RouteConfigLoadEnd) {
-            this.loading.hide();
-        }
+    this.router.events.subscribe(event => {
+      if (event instanceof RouteConfigLoadStart) {
+        this.loading.show();
+      } else if (event instanceof RouteConfigLoadEnd) {
+        this.loading.hide();
+      }
     });
   }
   public setTitle(title: string) {
@@ -68,7 +77,13 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
   }
   ngOnInit() {
-    
+    this.config.getConfig().then(res => {
+      for (let i = 0; i < res.length; i++) {
+        if(res[i].CanActive){
+          this.ModuleList.push(res[i].ModuleId);
+        }
+      }
+    });
   }
 
   ngOnDestroy() {

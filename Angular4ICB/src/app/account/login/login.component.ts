@@ -7,12 +7,13 @@ import {
 import { ICheckComponent } from "angular4-icheck";
 import { Router } from "@angular/router";
 import { LoginService } from "../../services/login.service";
+import { ConfigService } from "../../services/config.service";
 
 @Component({
   selector: "login-form",
   moduleId: module.id,
   templateUrl: "login.component.html",
-  providers: [LoginService]
+  providers: [LoginService,ConfigService]
 })
 export class LoginComponent {
   @ViewChild("rememberCheckbox") ckbRemember: ICheckComponent;
