@@ -21,22 +21,24 @@ import {
   RouteConfigLoadEnd
 } from "@angular/router";
 import { ConfigService } from "../services/config.service";
-import { forEach } from "@angular/router/src/utils/collection";
+import { RouteAnimation } from "../_animations/route.animation";
+
 
 declare var $: any;
 @Component({
   selector: "my-app",
   moduleId: module.id,
   templateUrl: "app.component.html",
-  providers: [SnackBarService, LoginService, ConfigService]
+  providers: [SnackBarService, LoginService, ConfigService],
+  animations:[RouteAnimation]
 })
 export class AppComponent implements OnInit, AfterViewInit {
   isLogin: boolean = true;
   headerName: any;
   subscription: Subscription;
   menus: MenuItem[] = Menus;
-  ModuleList: any[]=[0];
-  demo:boolean=false;
+  ModuleList: any[] = [0];
+  demo: boolean = false;
   constructor(
     private _title: Title,
     private ds: DataService,
@@ -88,6 +90,10 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+  getID(outlet){
+    //console.log(outlet.activatedRouteData["id"]);
+    return outlet.activatedRouteData["id"];
   }
   ngAfterViewInit() {
     let body = document.getElementsByTagName("body")[0];

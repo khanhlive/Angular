@@ -18,8 +18,16 @@ import { NewsComponent } from "../news/news.component";
         path: "",
         component: AppComponent,
         children: [
-          { path: "", redirectTo: "dashboard", pathMatch: "full" },
-          { path: "customers", component: CustomerComponent },
+          {
+            path: "",
+            redirectTo: "dashboard",
+            pathMatch: "full"
+          },
+          {
+            path: "customers",
+            component: CustomerComponent,
+            data: { id: 2 }
+          },
           {
             path: "accounts",
             component: AccountComponent,

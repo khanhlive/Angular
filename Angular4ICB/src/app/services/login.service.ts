@@ -51,6 +51,7 @@ export class LoginService extends ServiceBase {
         let token = JSON.parse(foo);
         return token.access_token;
       } else {
+        this.router.navigateByUrl('/account/login');
         let token = JSON.parse(foo);
         return token.access_token;
       }
@@ -65,6 +66,7 @@ export class LoginService extends ServiceBase {
         let token = JSON.parse(foo);
         return token.token_type;
       } else {
+        this.router.navigateByUrl('/account/login');
         let token = JSON.parse(foo);
         return token.token_type;
       }

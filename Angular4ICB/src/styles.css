@@ -29,3 +29,15 @@
 .checkbox label{
     padding-left: 0px !important;
 }
+label.checkbox{
+    padding-left: 0px !important;
+}
+.btn{
+    border-radius: 0px;
+}
+.routeContainer{
+    position: relative;
+}
+.routeContainer > * {
+    display: block;
+}

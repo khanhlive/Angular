@@ -12,7 +12,7 @@ import { slideInOutAnimation } from "../_animations/slide.animation";
   templateUrl: "customer.component.html",
   providers: [CustomerService],
   animations: [fadeInAnimation],
-  host: { "[@fadeInAnimation]": "" }
+  //host: { "[@fadeInAnimation]": "" }
 })
 export class CustomerComponent implements OnInit {
   public customers: any[];

@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
   ): Observable<boolean> | Promise<boolean> | boolean {
     let flag = this.loginService.getUserLoggedIn();
     if (flag) {
-      debugger
+      
       let data = next.data;
       if (data) {
         let roles = data.alowRoles;

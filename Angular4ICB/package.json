@@ -28,6 +28,7 @@
     "angularfire2": "^5.0.0-rc.4",
     "core-js": "^2.4.1",
     "firebase": "^4.8.2",
+    "ng-bootstrap-form-validation": "^2.1.0",
     "ng2-charts": "^1.6.0",
     "ng2-toastr": "^4.1.2",
     "ng4-loading-spinner": "^1.1.1",

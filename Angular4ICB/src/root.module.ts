@@ -11,7 +11,7 @@ import { RootComponent } from "./root.component";
   imports: [
     Ng4LoadingSpinnerModule,
     BrowserAnimationsModule,
-    RootRoutingModule
+    RootRoutingModule,
   ],
   declarations: [RootComponent],
   providers: [],

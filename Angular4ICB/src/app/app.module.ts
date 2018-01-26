@@ -5,7 +5,9 @@ import { ToastOptions } from "ng2-toastr";
 import { HttpClientModule } from "@angular/common/http";
 import { CdkTableModule } from "@angular/cdk/table";
 import { MaterialDesignModule } from "./app.material.module";
-import { ChartsModule} from 'ng2-charts';
+import { ChartsModule } from "ng2-charts";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { NgBootstrapFormValidationModule } from "ng-bootstrap-form-validation";
 
 //router
 // import { appRoutes } from './app.routes/app.routes';
@@ -24,7 +26,7 @@ import { AsideLeftComponent } from "./aside-left/aside-left.component";
 import { AsideRightComponent } from "./aside-right/aside-right.component";
 import { AppFooterComponent } from "./app-footer/app-footer.component";
 import { LoginComponent } from "./login.component/login.component";
-import  { ModalModule} from 'ngx-bootstrap'
+import { ModalModule } from "ngx-bootstrap";
 
 //services
 import { DataService } from "./services/dataService";
@@ -34,18 +36,27 @@ import { LoginService } from "./services/login.service";
 import { AuthGuard } from "./guard/auth.guard";
 import { InterceptorModule } from "./services/httpRequestInterceptor.module";
 import { HttpModule } from "@angular/http";
-import { NewsComponent } from './news/news.component';
-import { ConfigService } from './services/config.service';
+import { NewsComponent } from "./news/news.component";
+import { ConfigService } from "./services/config.service";
+import { ICheckModule } from "angular4-icheck";
+import { CUSTOM_ERRORS } from "./shared/customErrorMessage";
 export class CustomOption extends ToastOptions {
   animate = "flyRight"; // you can override any options available
   newestOnTop = false;
   showCloseButton = true;
   positionClass = "toast-bottom-right";
 }
+
 @NgModule({
   imports: [
     ToastModule.forRoot(),
     ModalModule.forRoot(),
+    ICheckModule.forRoot({
+      checkboxClass: "icheckbox_flat-blue",
+      radioClass: "iradio_flat-blue"
+    }),
+    FormsModule,
+    ReactiveFormsModule,
     CommonModule,
     HttpClientModule,
     AppRouting,
@@ -53,7 +64,8 @@ export class CustomOption extends ToastOptions {
     MaterialDesignModule,
     InterceptorModule,
     HttpModule,
-    ChartsModule
+    ChartsModule,
+    NgBootstrapFormValidationModule.forRoot(CUSTOM_ERRORS)
   ],
   declarations: [
     AppComponent,

@@ -13,24 +13,27 @@ import { ConfigService } from "../../services/config.service";
   selector: "login-form",
   moduleId: module.id,
   templateUrl: "login.component.html",
-  providers: [LoginService,ConfigService]
+  providers: [LoginService, ConfigService]
 })
 export class LoginComponent {
+  showLoading = false;
   @ViewChild("rememberCheckbox") ckbRemember: ICheckComponent;
   remember: any;
   constructor(private route: Router, private loginService: LoginService) {}
   loginSubmit(event) {
-    console.log(event);
-    let res = this.loginService.setUserLoggedIn(event.target[0].value,event.target[1].value);
+    this.showLoading = true;
+    let res = this.loginService.setUserLoggedIn(
+      event.target[0].value,
+      event.target[1].value
+    );
     res.then(re => {
-      
+      this.showLoading = false;
       if (re) {
         //localStorage.setItem("Angular_token", JSON.stringify(re));
         this.route.navigateByUrl("/app");
       }
     });
-    
-    
+
     return false;
   }
 

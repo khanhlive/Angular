@@ -46,7 +46,10 @@
         <section class="content content-extend">
 
             <h1>{{headerName}}</h1>
-            <router-outlet></router-outlet>
+            <div class="routeContainer" [@routeAnimation]="{value:getID(routerOutlet)}">
+                <router-outlet #routerOutlet="outlet"></router-outlet>
+            </div>
+            
             <!-- <toast-messages></toast-messages> -->
         </section>
         <!-- /.content -->
