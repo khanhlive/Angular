@@ -28,6 +28,7 @@ export class AuthGuard implements CanActivate {
         let roles = data.alowRoles;
         if (roles) {
           let accountRole = this.loginService.getRole();
+          
           if (roles.indexOf(accountRole) != -1) {
             let moduleConfig = this.config.getConfigLocal();
             let id = next.data.id;

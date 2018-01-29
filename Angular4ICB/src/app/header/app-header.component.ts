@@ -8,9 +8,12 @@ import { LoginService } from "../services/login.service";
   providers: [LoginService]
 })
 export class AppHeaderComponent implements OnInit {
+  fullname:string='';
   constructor(private loginService: LoginService) {}
   logout(): void {
     this.loginService.logout();
   }
-  ngOnInit() {}
+  ngOnInit() {
+    this.fullname=this.loginService.getFullname();
+  }
 }

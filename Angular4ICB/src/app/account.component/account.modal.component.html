@@ -1,25 +1,26 @@
 <ng-template #modalcreate>
     <div class="modal-header">
-        <h4 class="modal-title pull-left">Create Account</h4>
+        <h4 class="modal-title pull-left">{{modalTitle}}</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body">
 
-        <form class="form-horizontal form-no-bottom" [formGroup]="AccountModel" novalidate (validSubmit)="btnOK_Click()">
+        <form class="form-horizontal form-no-bottom" [formGroup]="AccountModel" novalidate (validSubmit)="btnOK_Click(AccountModel.value)">
+            <input type="hidden" formControlName="ID"/>
             <div class="modal-body">
                 <div class="form-group">
                     <label class="control-label col-md-4">Họ tên: </label>
                     <div class="col-md-8">
-                        <input class="form-control" name="Fullname" placeholder="Họ tên" formControlName="Fullname" />
+                        <input class="form-control" name="Fullname" placeholder="Họ tên"  formControlName="Fullname" />
                         <bfv-messages></bfv-messages>
                     </div>
                 </div>
                 <div class="form-group has-feedback">
                     <label class="control-label col-md-4">Tên đăng nhập: </label>
                     <div class="col-md-8">
-                        <input class="form-control" formControlName="Username" placeholder="Tên đăng nhập" />
+                        <input class="form-control" [readonly]="accountId!=null" formControlName="Username" placeholder="Tên đăng nhập" />
                         <bfv-messages></bfv-messages>
                     </div>
 
@@ -27,15 +28,15 @@
                 <div class="form-group has-feedback">
                     <label class="control-label col-md-4">Mật khẩu: </label>
                     <div class="col-md-8">
-                        <input class="form-control" type="password" formControlName="Password" placeholder="Mật khẩu" />
+                        <input class="form-control" type="password" formControlName="Password"  placeholder="Mật khẩu" />
                         <bfv-messages></bfv-messages>
                     </div>
 
                 </div>
-                <div class="form-group has-feedback">
+                <div class="form-group has-feedback" [class.has-error]="AccountModel.controls.RetypePassword.errors?.matchOther">
                     <label class="control-label col-md-4">Xác nhận mật khẩu: </label>
                     <div class="col-md-8">
-                        <input class="form-control" type="password" formControlName="RetypePassword" placeholder="Xác nhận mật khẩu" />
+                        <input class="form-control" type="password"  formControlName="RetypePassword" placeholder="Xác nhận mật khẩu" />
                         <span *ngIf="AccountModel.controls.RetypePassword.errors?.matchOther" class="help-block ng-star-inserted">Mật khẩu không trùng khớp!</span>
                         <bfv-messages></bfv-messages>
                     </div>
@@ -43,7 +44,7 @@
                 <div class="form-group has-feedback">
                     <label class="control-label col-md-4">Email: </label>
                     <div class="col-md-8">
-                        <input class="form-control" formControlName="Email" placeholder="Địa chỉ Email" />
+                        <input class="form-control" formControlName="Email"   placeholder="Địa chỉ Email" />
                         <bfv-messages></bfv-messages>
                     </div>
 
@@ -51,7 +52,7 @@
                 <div class="form-group has-feedback">
                     <label class="control-label col-md-4">Số điện thoại: </label>
                     <div class="col-md-8">
-                        <input class="form-control" formControlName="PhoneNumber" placeholder="Số điện thoại" />
+                        <input class="form-control" type="text" formControlName="PhoneNumber"   placeholder="Số điện thoại" />
                         <bfv-messages></bfv-messages>
                     </div>
 
@@ -59,8 +60,12 @@
                 <div class="form-group has-feedback">
                     <label class="control-label col-md-4">Quyền: </label>
                     <div class="col-md-8">
-                        <select class="form-control" formControlName="Role">
-                            <option value>Chọn quyền</option>
+                        <select class="form-control" formControlName="Role" >
+                            <option value="0">SuperAdmin</option>
+                            <option value="1">Admin</option>
+                            <option value="2">Manager</option>
+                            <option value="3">Writer</option>
+                            <option selected="selected" value="4">Member</option>
                         </select>
                         <bfv-messages></bfv-messages>
                     </div>
@@ -70,7 +75,7 @@
                     <label class="control-label col-md-4">&nbsp;</label>
                     <div class="col-md-8">
                         <label class="checkbox">
-                            <input class="" type="checkbox" icheck formControlName="IsActive" />&nbsp;&nbsp; Đã xác nhận</label>
+                            <input class="" type="checkbox"  icheck formControlName="IsActive" (ifChanged)="accountIsActiveChange($event)" />&nbsp;&nbsp; Đã xác nhận</label>
                         
                     </div>
 
@@ -79,14 +84,14 @@
                     <label class="control-label col-md-4">&nbsp;</label>
                     <div class="col-md-8">
                         <label class="checkbox">
-                            <input class="" type="checkbox" icheck formControlName="IsLocked" />&nbsp;&nbsp; Đã khóa</label>
+                            <input class="" type="checkbox" icheck formControlName="IsLocked" (ifChanged)="accountIsLockChange($event)" />&nbsp;&nbsp; Đã khóa</label>
                         
                     </div>
 
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" id="btn-add-account-submit" class="btn btn-primary">
+                <button type="submit" [disabled]="!AccountModel.valid" id="btn-add-account-submit" class="btn btn-primary">
                     <i class="fa fa-save"></i>&nbsp;&nbsp; Lưu</button>
                 <button type="button" class="btn btn-danger" (click)='closeModal()'>
                     <i class="fa fa-remove"></i>&nbsp;&nbsp; Hủy</button>

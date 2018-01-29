@@ -5,6 +5,7 @@ import { Observable } from "rxjs";
 import "rxjs/add/operator/map";
 import { Router } from "@angular/router";
 import { ApplicationRole } from "../guard/ApplicationRole";
+import * as JWT from 'jwt-decode';
 
 @Injectable()
 export class LoginService extends ServiceBase {
@@ -49,6 +50,7 @@ export class LoginService extends ServiceBase {
     else {
       if (this.getUserLoggedIn()) {
         let token = JSON.parse(foo);
+        
         return token.access_token;
       } else {
         this.router.navigateByUrl('/account/login');
@@ -113,14 +115,26 @@ export class LoginService extends ServiceBase {
   }
   getRole(): number {
     let foo = localStorage.getItem(this.tokenStringName);
-    // if (this.checkTokenExpried()) {
-    //   this.setUserLoggedIn(LoginService.username, LoginService.password);
-    //   let token = JSON.parse(foo);
-    //   return token.token_type;
-    // } else {
-    //   let token = JSON.parse(foo);
-    //   return token.token_type;
-    // }
-    return ApplicationRole.SuperAdmin;
+    if (foo == null) return ApplicationRole.Member;
+    else {
+      if (this.getUserLoggedIn()) {
+        let token = JSON.parse(foo);
+        return Number.parseInt(token.role);
+      } else {
+        return ApplicationRole.Member;
+      }
+    }
+  }
+  getFullname(){
+    let foo = localStorage.getItem(this.tokenStringName);
+    if (foo == null) return "";
+    else {
+      if (this.getUserLoggedIn()) {
+        let token = JSON.parse(foo);
+        return token.fullName;
+      } else {
+        return '';
+      }
+    }
   }
 }

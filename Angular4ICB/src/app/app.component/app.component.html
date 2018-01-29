@@ -8,7 +8,7 @@
         <section class="sidebar">
             <ul class="sidebar-menu">
                 <li class="treeview" *ngFor="let item of menus" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                    <a *ngIf="ModuleList.indexOf(item.id)!=-1" routerLink="{{item.routerLink}}" (click)="setTitle(item.name)">
+                    <a *ngIf="ModuleList.indexOf(item.id)!=-1" routerLink="{{item.routerLink}}" (click)="setTitle(item.title)">
                         <i class="{{item.icon}}"></i>
                         <span>{{item.name}}</span>
                         <span *ngIf="item.hasChild" class="pull-right-container">
@@ -17,7 +17,7 @@
                     </a>
                     <ul *ngIf="item.hasChild" class="treeview-menu">
                         <li *ngFor="let itemChild of item.childs">
-                            <a routerLink="{{itemChild.routerLink}}" (click)="setTitle(itemChild.name)">
+                            <a routerLink="{{itemChild.routerLink}}" (click)="setTitle(itemChild.title)">
                                 <i class="{{itemChild.icon}}"></i>
                                 <span>{{itemChild.name}}</span>
                             </a>
@@ -30,7 +30,7 @@
     </aside>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper" style="min-height:900px;">
+    <div class="content-wrapper" style="min-height:908px;">
         <!-- Content Header (Page header) -->
         <!--<section class="content-header">
                     <h1>

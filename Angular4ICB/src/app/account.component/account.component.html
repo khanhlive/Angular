@@ -4,9 +4,15 @@
             <h3 class="box-title">Danh sách tài khoản</h3>
 
             <div class="box-tools pull-right">
-                <button type="button" class="btn btn-sm btn-primary" (click)="btnCustomerCreate_OnClick()">
-                    <i class="fa fa-plus"></i>&nbsp;Tạo mới
-                </button>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-primary" (click)="btnCustomerCreate_OnClick()">
+                        <i class="fa fa-plus"></i>&nbsp;Tạo mới
+                    </button>
+                    <button type="button" class="btn btn-sm btn-info" (click)="BindingAccounts()">
+                        <i class="fa fa-refresh"></i>&nbsp;Làm mới
+                    </button>
+                </div>
+
                 <!-- <button type="button" class="btn btn-box-tool" data-widget="remove">
                     <i class="fa fa-times"></i>
                 </button> -->
@@ -15,7 +21,7 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            <table class="table table-bordered">
+            <table class="table table-bordered jambo_table">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -25,6 +31,7 @@
                         <th>Date</th>
                         <th>Fullname</th>
                         <th>Email</th>
+                        <th colspan="2" class="text-center">Chức năng</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,6 +43,16 @@
                         <td>{{item.CreateTime| date:'dd/MM/yyyy'}}</td>
                         <td>{{item.Fullname}}</td>
                         <td>{{item.Email}}</td>
+                        <td class="text-center func">
+                            <button class="btn btn-sm btn-primary" (click)="EditAccount(item)" type="button">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                        </td>
+                        <td class="text-center func">
+                            <button class="btn btn-sm btn-danger" (click)="deleteAccount(item)" type="button">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -45,4 +62,4 @@
 
 
 </div>
-<account-create-popup (createDone)="createHandler($event)"></account-create-popup>
+<account-create-popup [accountId]="ID" (createDone)="createHandler($event)"></account-create-popup>

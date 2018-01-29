@@ -45,7 +45,9 @@ import { NewsComponent } from "../news/news.component";
               alowRoles: [
                 ApplicationRole.SuperAdmin,
                 ApplicationRole.Admin,
-                ApplicationRole.Manager
+                ApplicationRole.Manager,
+                ApplicationRole.Writer,
+                ApplicationRole.Member
               ]
             }
           },
